@@ -54,9 +54,23 @@ const Sidebar = () => {
             name="Tariq Brown"
             className={cn("transition-all", collapsed && "w-10 h-10")}
           />
-          <div className={cn("flex flex-col", collapsed && "hidden")}>
-            <p>Tariq Brown</p>
-            <p className="text-[0.8rem] text-white/50">Software Engineer</p>
+          <div
+            className={cn(
+              "flex flex-col transition-all duration-300",
+              collapsed
+                ? "opacity-0 max-w-0 h-0 overflow-hidden"
+                : "opacity-100"
+            )}
+          >
+            <p className={cn("transition-opacity duration-300")}>Tariq Brown</p>
+            <p
+              className={cn(
+                "text-[0.8rem] text-white/50 transition-opacity duration-500 whitespace-nowrap",
+                collapsed ? "opacity-0" : "opacity-100"
+              )}
+            >
+              Software Engineer
+            </p>
           </div>
         </div>
         <nav className="flex flex-col gap-1">
@@ -65,14 +79,23 @@ const Sidebar = () => {
               key={item.href}
               href={item.href}
               className={cn(
-                " px-3 py-2.5 transition-all duration-400  rounded-md flex gap-2 items-center text-white/65 hover:text-white leading-none",
-                collapsed && " p-2 my-1 mx-auto",
+                "flex items-center rounded-md text-white/65 hover:text-white transition-all duration-300",
+                collapsed ? "justify-center p-2" : "gap-2 px-3 py-2",
                 pathname === item.href &&
                   "bg-white/10 outline-white/20 outline-[1px] text-white"
               )}
             >
               <item.icon size={18} className="leading-none" />
-              {!collapsed && item.name}
+              <span
+                className={cn(
+                  "transition-all duration-300",
+                  !collapsed
+                    ? `opacity-100 w-auto delay-[150ms]`
+                    : "opacity-0 w-0 overflow-hidden"
+                )}
+              >
+                {item.name}
+              </span>
             </Link>
           ))}
         </nav>
