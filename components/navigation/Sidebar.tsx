@@ -1,33 +1,22 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { Button } from "@heroui/react";
-import {
-  ChevronLeft,
-  ChevronRight,
-  Home,
-  Compass,
-  UserRound,
-  MessageCircle,
-  BriefcaseBusiness,
-} from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 import { Avatar } from "@heroui/react";
-
-const navItems = [
-  { name: "Explore", icon: Compass, href: "/" },
-  { name: "About", icon: UserRound, href: "/about" },
-  { name: "Experience", icon: BriefcaseBusiness, href: "/experience" },
-  { name: "Contact", icon: MessageCircle, href: "/contact" },
-];
+import navItems from "@/lib/navItems";
 
 const Sidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
   const pathname = usePathname();
 
   return (
-    <div className="relative">
+    <div
+      className="group/sidebar relative"
+      data-state={collapsed ? "closed" : "open"}
+    >
       <Button
         isIconOnly
         variant="light"
@@ -35,7 +24,12 @@ const Sidebar = () => {
         className="absolute right-[-12] min-w-0 min-h-0 w-6 h-6 top-12 bg-sidebar"
         radius="full"
       >
-        {collapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
+        <ChevronRight
+          size={14}
+          className={cn(
+            "transition-transform duration-500 group-data-[state=open]/sidebar:rotate-180"
+          )}
+        />
       </Button>
       <aside
         className={cn(
@@ -79,7 +73,7 @@ const Sidebar = () => {
               key={item.href}
               href={item.href}
               className={cn(
-                "flex items-center rounded-md text-white/65 hover:text-white transition-all duration-300",
+                "flex items-center rounded-sm text-white/65 hover:text-white transition-all duration-400",
                 collapsed ? "justify-center p-2" : "gap-2 px-3 py-2",
                 pathname === item.href &&
                   "bg-white/10 outline-white/20 outline-[1px] text-white"
@@ -88,7 +82,7 @@ const Sidebar = () => {
               <item.icon size={18} className="leading-none" />
               <span
                 className={cn(
-                  "transition-all duration-300",
+                  "transition-all duration-400",
                   !collapsed
                     ? `opacity-100 w-auto delay-[150ms]`
                     : "opacity-0 w-0 overflow-hidden"
