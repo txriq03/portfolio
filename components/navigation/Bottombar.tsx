@@ -3,31 +3,32 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import navItems from "@/lib/navItems";
+import { Dock, DockIcon } from "../magicui/dock";
+import { Button } from "@heroui/react";
 
 const BottomBar = () => {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed bottom-0 inset-x-0 z-50 bg-sidebar border-t border-white/10 shadow-md md:hidden">
-      <div className="flex justify-between items-center px-4 py-2">
-        {navItems.map((item) => {
-          const isActive = pathname === item.href;
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                "flex flex-col items-center justify-center flex-1 text-xs text-white/70 transition-all",
-                isActive && "text-white"
-              )}
-            >
-              <item.icon size={20} className="mb-0.5" />
-              <span>{item.name}</span>
+    <Dock className="fixed bottom-5 left-1/2 -translate-x-1/2 md:hidden">
+      {navItems.map((item) => {
+        const isActive = pathname === item.href;
+        return (
+          <DockIcon key={item.name}>
+            <Link href={item.href}>
+              <Button isIconOnly variant="light" data-hover={isActive}>
+                <item.icon
+                  className={cn(
+                    "text-white/70 group-hover:text-white",
+                    isActive && "text-white"
+                  )}
+                />
+              </Button>
             </Link>
-          );
-        })}
-      </div>
-    </nav>
+          </DockIcon>
+        );
+      })}
+    </Dock>
   );
 };
 
