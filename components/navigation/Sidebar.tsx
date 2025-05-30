@@ -14,7 +14,7 @@ const Sidebar = () => {
 
   return (
     <div
-      className="group/sidebar relative"
+      className="group/sidebar relative hidden md:block"
       data-state={collapsed ? "closed" : "open"}
     >
       <Button
@@ -33,7 +33,7 @@ const Sidebar = () => {
       </Button>
       <aside
         className={cn(
-          "h-screen bg-sidebar transition-all duration-500  flex flex-col ease-in-out overflow-hidden",
+          "h-full min-h-screen bg-sidebar transition-all duration-500  flex flex-col ease-in-out overflow-hidden",
           collapsed ? "w-16 p-3" : "w-58 p-4"
         )}
       >
@@ -56,7 +56,13 @@ const Sidebar = () => {
                 : "opacity-100"
             )}
           >
-            <p className={cn("transition-opacity duration-300")}>Tariq Brown</p>
+            <p
+              className={cn(
+                "transition-opacity duration-300 font-bold leading-none"
+              )}
+            >
+              Tariq Brown
+            </p>
             <p
               className={cn(
                 "text-[0.8rem] text-white/50 transition-opacity duration-500 whitespace-nowrap",
@@ -68,30 +74,33 @@ const Sidebar = () => {
           </div>
         </div>
         <nav className="flex flex-col gap-1">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                "flex items-center rounded-sm text-white/65 hover:text-white transition-all duration-400",
-                collapsed ? "justify-center p-2" : "gap-2 px-3 py-2",
-                pathname === item.href &&
-                  "bg-white/10 outline-white/20 outline-[1px] text-white"
-              )}
-            >
-              <item.icon size={18} className="leading-none" />
-              <span
+          {navItems.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
                 className={cn(
-                  "transition-all duration-400",
-                  !collapsed
-                    ? `opacity-100 w-auto delay-[150ms]`
-                    : "opacity-0 w-0 overflow-hidden"
+                  "flex items-center rounded-sm text-white/65 hover:text-white transition-all duration-400",
+                  collapsed ? "justify-center p-2" : "gap-2 px-3 py-2",
+                  isActive &&
+                    "bg-white/10 outline-white/20 outline-[1px] text-white"
                 )}
               >
-                {item.name}
-              </span>
-            </Link>
-          ))}
+                <item.icon size={18} className="leading-none" />
+                <span
+                  className={cn(
+                    "transition-all duration-400",
+                    !collapsed
+                      ? `opacity-100 w-auto delay-[150ms]`
+                      : "opacity-0 w-0 overflow-hidden"
+                  )}
+                >
+                  {item.name}
+                </span>
+              </Link>
+            );
+          })}
         </nav>
       </aside>
     </div>
