@@ -14,7 +14,7 @@ const Sidebar = () => {
 
   return (
     <div
-      className="group/sidebar relative hidden md:block"
+      className="group/sidebar relative hidden lg:block"
       data-state={collapsed ? "closed" : "open"}
     >
       <Button

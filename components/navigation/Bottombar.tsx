@@ -10,13 +10,18 @@ const BottomBar = () => {
   const pathname = usePathname();
 
   return (
-    <Dock className="fixed bottom-5 left-1/2 -translate-x-1/2 md:hidden">
+    <Dock className="fixed bottom-5 left-1/2 -translate-x-1/2 lg:hidden rounded-full">
       {navItems.map((item) => {
         const isActive = pathname === item.href;
         return (
           <DockIcon key={item.name}>
             <Link href={item.href}>
-              <Button isIconOnly variant="light" data-hover={isActive}>
+              <Button
+                isIconOnly
+                variant="light"
+                data-hover={isActive}
+                radius="full"
+              >
                 <item.icon
                   className={cn(
                     "text-white/70 group-hover:text-white",

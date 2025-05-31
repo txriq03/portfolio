@@ -5,6 +5,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --font-inter: var(--font-inter);
+  
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -121,3 +123,5 @@
     @apply bg-background text-foreground;
   }
 }
+
+
